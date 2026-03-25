@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birthday Keepsake</title>
+  <link rel="icon" href="images/fav.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -29,7 +30,16 @@
     </div>
   </section>
 
-  <!-- Screen 2: Song paper cuttings -->
+  <!-- Screen 2: Eye intro video -->
+  <section id="eye-video-screen" class="screen">
+    <div id="eye-video-stage" class="eye-video-stage">
+      <video id="eye-video" playsinline muted preload="auto">
+        <source src="images/eye.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <!-- Screen 3: Song paper cuttings -->
   <section id="song-stage" class="screen">
     <h2 class="stage-title">Choose Your Song</h2>
     <p class="song-sub">Tap play on any paper cutting. Each selected song plays in loop.</p>
@@ -41,14 +51,16 @@
     <p id="song-status"></p>
   </section>
 
-  <!-- Screen 3: Old letter -->
+  <!-- Screen 4: Old letter -->
   <section id="letter-screen" class="screen">
     <article id="letter-card" class="letter">
       <h2>To the Most Lovely Birthday Girl</h2>
       <p>
-        On this blessed day, I write with a heart full of wonder and gratitude.
-        May your laughter remain bright as morning light, and may each year bring
-        you gentleness, grace, and a thousand sweet memories.
+       On this special day, I celebrate the gift of you with a heart
+        full of love and gratitude. May your laughter always shine as
+         brightly as the first light of dawn, and may each passing 
+         year bring you boundless joy, endless grace, and memories 
+         as sweet as the moments we've shared.
       </p>
       <p>
         If this humble page could sing, it would speak of your kindness, your charm,
@@ -59,14 +71,14 @@
     </article>
   </section>
 
-  <!-- Screen 4: 8 cuttings -->
+  <!-- Screen 5: 8 cuttings -->
   <section id="cuttings-stage" class="screen">
     <h2 class="stage-title">Pieces of a Birthday Story</h2>
     <p>Read, drag, then open the next cutting.</p>
     <div id="board" class="board"></div>
   </section>
 
-  <!-- Screen 5: Gallery -->
+  <!-- Screen 6: Gallery -->
   <section id="gallery-stage" class="screen">
     <h2 class="stage-title">Memory Gallery</h2>
     <div class="gallery-card">

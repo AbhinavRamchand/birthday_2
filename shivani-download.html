@@ -3,16 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shivani Photo Download</title>
+  <title>Shivani Secret Letter</title>
+  <link rel="icon" href="images/fav.png" type="image/png">
   <link rel="stylesheet" href="shivani-download.css">
 </head>
 <body>
-  <main class="download-wrap">
-    <h1>Your photo is ready</h1>
-    <p>The image preview is hidden. Download starts automatically.</p>
-    <a id="direct-download" class="download-btn" href="images/shivani.png" download="shivani.png">Download Again</a>
-    <p id="download-status" class="status">Preparing download...</p>
+  <main class="scene">
+    <h1 class="title">A Letter For You</h1>
+    <p class="subtitle">Click the seal to open the envelope.</p>
+
+    <div class="envlope-wrapper">
+      <div id="envelope" class="close" aria-label="Envelope">
+        <div class="front flap"></div>
+        <div class="front pocket"></div>
+        <div class="letter">
+          <img class="letter-image" src="images/shivani.png" alt="Shivani">
+          <div class="inner-heart" aria-hidden="true"></div>
+        </div>
+        <button id="seal-btn" class="seal" type="button" aria-label="Open with seal">S</button>
+        <div class="hearts">
+          <div class="heart a1"></div>
+          <div class="heart a2"></div>
+          <div class="heart a3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="download-area" class="download-area" aria-live="polite">
+      <button id="download-heart-btn" class="download-heart-btn" type="button" aria-label="Download image">
+        <span class="download-heart" aria-hidden="true"></span>
+      </button>
+      <span style="font-size: 30px; font-weight: 800;">Click Me</span>
+      <a id="download-link" href="images/shivani.png" download="shivani.png" hidden>Download Shivani</a>
+    </div>
   </main>
+
   <script src="shivani-download.js"></script>
 </body>
 </html>

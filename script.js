@@ -1,28 +1,27 @@
 ﻿const cuttingsData = [
-      "You arrived in this world and made it brighter from that day onward.",
-      "Your smile carries spring wherever it goes.",
-      "Your kindness is the softest song a heart can hear.",
-      "In every room, your joy leaves a glow behind.",
-      "Your courage is quiet, but it is powerful and beautiful.",
-      "May this new year bring you dreams that truly bloom.",
-      "May your days be full of laughter, letters, and little miracles.",
-      "You are deeply loved, and this day is made for you."
-    ];
+  "I’ve known you for years, and your charm has never faded.",
+  "No matter the time or distance, your light always shines bright.",
+  "I’m sorry for the moments that weren’t as simple as I thought.",
+  "Your kindness and strength still leave me in awe, always.",
+  "May this new year bring you everything your heart desires.",
+  "Wishing you days filled with laughter, love, and little joys.",
+  "You are deeply cherished, and this day is all about you."
+];
 
 const galleryData = [
-  { src: "images/1 (2).jpg", cap: "Memory One" },
-  { src: "images/2.jpg", cap: "Memory Two" },
-  { src: "images/3.jpg", cap: "Memory Three" },
-  { src: "images/1 (2).jpg", cap: "Memory Four" },
-  { src: "images/2.jpg", cap: "Memory Five" },
-  { src: "images/3.jpg", cap: "Memory Six" },
-  { src: "images/1 (2).jpg", cap: "Memory Seven" },
-  { src: "images/2.jpg", cap: "Memory Eight" },
-  { src: "images/3.jpg", cap: "Memory Nine" }
+  { src: "images/1.jpg", cap: "A moment to remember forever." },
+  { src: "images/2.jpg", cap: "Pure joy captured in time." },
+  { src: "images/3.jpg", cap: "Where beauty meets the moment." },
+  { src: "images/4.jpg", cap: "A smile that says everything." },
+  { src: "images/5.jpg", cap: "Unforgettable, just like you." },
+  { src: "images/6.jpg", cap: "A snapshot of happiness." },
+  { src: "images/7.jpg", cap: "Timeless beauty, endless memories." },
+  { src: "images/8.jpg", cap: "In this moment, everything is right." },
+  { src: "images/9.jpg", cap: "A picture that speaks volumes." }
 ];
 
     const songsData = [
-      { title: "Song One", src: "audio/Audio1.mp3", img: "images/1 (2).jpg" },
+      { title: "Song One", src: "audio/Audio1.mp3", img: "images/1.jpg" },
       { title: "Song Two", src: "audio/Audio2.mp3", img: "images/2.jpg" },
       { title: "Song Three", src: "audio/Audio3.mp3", img: "images/3.jpg" }
     ];
@@ -37,6 +36,8 @@ let finalQrPrepared = false;
 const UNLOCK_AT_IST = new Date("2026-03-27T00:00:00+05:30");
 const DEV_SHOW_UNLOCK_BUTTON = true; // Set to false when you want real lock behavior.
 let launchTickerId = null;
+let eyeVideoFallbackTimer = null;
+let eyeIntroDone = false;
 
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
@@ -132,6 +133,63 @@ function initFinalQr() {
   tryNextProvider();
 }
 
+function finishEyeIntro() {
+  const stage = document.getElementById("eye-video-stage");
+  if (!stage) return;
+
+  stage.classList.remove("opening");
+  stage.classList.add("closing");
+  setTimeout(() => {
+    showScreen("song-stage");
+    initSongStage();
+  }, 780);
+}
+
+function startEyeIntro() {
+  if (eyeIntroDone) {
+    showScreen("song-stage");
+    initSongStage();
+    return;
+  }
+
+  const stage = document.getElementById("eye-video-stage");
+  const video = document.getElementById("eye-video");
+  if (!stage || !video) {
+    showScreen("song-stage");
+    initSongStage();
+    return;
+  }
+
+  showScreen("eye-video-screen");
+  stage.classList.remove("closing");
+  void stage.offsetWidth;
+  stage.classList.add("opening");
+
+  let introFinished = false;
+  const onEnded = () => {
+    if (introFinished) return;
+    introFinished = true;
+    video.removeEventListener("ended", onEnded);
+    if (eyeVideoFallbackTimer) {
+      clearTimeout(eyeVideoFallbackTimer);
+      eyeVideoFallbackTimer = null;
+    }
+    eyeIntroDone = true;
+    finishEyeIntro();
+  };
+
+  video.currentTime = 0;
+  video.addEventListener("ended", onEnded);
+  video.play().catch(() => {
+    onEnded();
+  });
+
+  const fallbackMs = Number.isFinite(video.duration) && video.duration > 0
+    ? Math.ceil(video.duration * 1000) + 2500
+    : 120000;
+  eyeVideoFallbackTimer = setTimeout(onEnded, fallbackMs);
+}
+
     function playSong(index) {
       const status = document.getElementById("song-status");
       songPlayers.forEach((player, i) => {
@@ -204,14 +262,8 @@ function initFinalQr() {
         : `${songsData[currentSongIndex].title} is playing in loop.`;
     }
 
-    document.getElementById("finger-open").addEventListener("click", () => {
-      showScreen("song-stage");
-      initSongStage();
-    });
-    document.getElementById("gate-btn").addEventListener("click", () => {
-      showScreen("song-stage");
-      initSongStage();
-    });
+    document.getElementById("finger-open").addEventListener("click", startEyeIntro);
+    document.getElementById("gate-btn").addEventListener("click", startEyeIntro);
     document.getElementById("song-next-btn").addEventListener("click", () => showScreen("letter-screen"));
     document.getElementById("stop-song-btn").addEventListener("click", stopSongs);
 
@@ -393,4 +445,3 @@ function initGallery() {
 }
 
 initLaunchGate();
-

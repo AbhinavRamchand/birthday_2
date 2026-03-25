@@ -1,22 +1,27 @@
-﻿const filePath = "images/shivani.png";
-const status = document.getElementById("download-status");
-const manualLink = document.getElementById("direct-download");
+﻿const envelope = document.getElementById("envelope");
+const sealBtn = document.getElementById("seal-btn");
+const downloadArea = document.getElementById("download-area");
+const downloadHeartBtn = document.getElementById("download-heart-btn");
+const downloadLink = document.getElementById("download-link");
 
-function startDownload() {
-  const link = document.createElement("a");
-  link.href = filePath;
-  link.download = "shivani.png";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+function openEnvelope() {
+  if (!envelope.classList.contains("close")) return;
+  envelope.classList.add("open");
+  envelope.classList.remove("close");
+
+  setTimeout(() => {
+    downloadArea.classList.add("show");
+  }, 520);
 }
 
-manualLink.href = filePath;
-manualLink.download = "shivani.png";
+sealBtn.addEventListener("click", openEnvelope);
+sealBtn.addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    openEnvelope();
+  }
+});
 
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    startDownload();
-    status.textContent = "Download started. If blocked, tap 'Download Again'.";
-  }, 350);
+downloadHeartBtn.addEventListener("click", () => {
+  downloadLink.click();
 });

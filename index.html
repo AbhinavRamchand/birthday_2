@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div id="scene-fade" class="scene-fade"></div>
+
   <!-- Screen 0: Launch timer gate -->
   <section id="launch-screen" class="screen active">
     <div class="panel gate-box launch-box">
@@ -31,15 +33,22 @@
   </section>
 
   <!-- Screen 2: Eye intro video -->
+  <section id="eye-quote-screen" class="screen">
+    <div class="eye-quote-box">
+      <p class="eye-quote-text">"Her eyes held stories my heart could never stop reading."</p>
+    </div>
+  </section>
+
+  <!-- Screen 3: Eye intro video -->
   <section id="eye-video-screen" class="screen">
     <div id="eye-video-stage" class="eye-video-stage">
-      <video id="eye-video" playsinline muted preload="auto">
+      <video id="eye-video" playsinline preload="auto">
         <source src="images/eye.mp4" type="video/mp4">
       </video>
     </div>
   </section>
 
-  <!-- Screen 3: Song paper cuttings -->
+  <!-- Screen 4: Song paper cuttings -->
   <section id="song-stage" class="screen">
     <h2 class="stage-title">Choose Your Song</h2>
     <p class="song-sub">Tap play on any paper cutting. Each selected song plays in loop.</p>
@@ -51,7 +60,7 @@
     <p id="song-status"></p>
   </section>
 
-  <!-- Screen 4: Old letter -->
+  <!-- Screen 5: Old letter -->
   <section id="letter-screen" class="screen">
     <article id="letter-card" class="letter">
       <h2>To the Most Lovely Birthday Girl</h2>
@@ -71,14 +80,14 @@
     </article>
   </section>
 
-  <!-- Screen 5: 8 cuttings -->
+  <!-- Screen 6: 8 cuttings -->
   <section id="cuttings-stage" class="screen">
     <h2 class="stage-title">Pieces of a Birthday Story</h2>
     <p>Read, drag, then open the next cutting.</p>
     <div id="board" class="board"></div>
   </section>
 
-  <!-- Screen 6: Gallery -->
+  <!-- Screen 7: Gallery -->
   <section id="gallery-stage" class="screen">
     <h2 class="stage-title">Memory Gallery</h2>
     <div class="gallery-card">
@@ -88,11 +97,12 @@
       <div id="end-note" class="end-note">
         <h3>Final Note</h3>
         <p>
-          May your days be wrapped in love, your nights in peace, and your life in beautiful stories.
+          May your days be wrapped in love, your nights in peace, 
+          and your life in beautiful stories.
           Happy Birthday once again.
         </p>
         <div class="qr-note">
-          <p>Scan this heart QR to get a private photo download.</p>
+          <p>Scan the QR for the Greeting Card.</p>
           <a id="final-qr-link" class="heart-qr-shell" href="shivani-download.html" target="_blank" rel="noopener noreferrer" aria-label="Open Shivani image download page">
             <img id="final-qr-img" alt="Heart QR code for Shivani download">
           </a>

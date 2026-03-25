@@ -12,18 +12,17 @@ const galleryData = [
   { src: "images/1.jpg", cap: "A moment to remember forever." },
   { src: "images/2.jpg", cap: "Pure joy captured in time." },
   { src: "images/3.jpg", cap: "Where beauty meets the moment." },
-  { src: "images/4.jpg", cap: "A smile that says everything." },
-  { src: "images/5.jpg", cap: "Unforgettable, just like you." },
-  { src: "images/6.jpg", cap: "A snapshot of happiness." },
+  { src: "images/4.jpeg", cap: "A smile that says everything." },
+  { src: "images/5.jpeg", cap: "Unforgettable, just like you." },
+  { src: "images/6.jpeg", cap: "A snapshot of happiness." },
   { src: "images/7.jpg", cap: "Timeless beauty, endless memories." },
   { src: "images/8.jpg", cap: "In this moment, everything is right." },
   { src: "images/9.jpg", cap: "A picture that speaks volumes." }
 ];
 
     const songsData = [
-      { title: "Song One", src: "audio/Audio1.mp3", img: "images/1.jpg" },
-      { title: "Song Two", src: "audio/Audio2.mp3", img: "images/2.jpg" },
-      { title: "Song Three", src: "audio/Audio3.mp3", img: "images/3.jpg" }
+      { title: "അരു പറഞ്ഞു", src: "audio/Audio1.mp3" },
+      { title: "ഞാൻ കാണും നേരം തോറ്റാ", src: "audio/njan kanum nearam thotea.mp3" }
     ];
 
 const songPlayers = songsData.map(item => {
@@ -38,10 +37,12 @@ const DEV_SHOW_UNLOCK_BUTTON = true; // Set to false when you want real lock beh
 let launchTickerId = null;
 let eyeVideoFallbackTimer = null;
 let eyeIntroDone = false;
+let eyeQuoteTimer = null;
 
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
+  document.body.classList.toggle("no-scroll", id === "eye-video-screen");
 }
 
 function formatTimeLeft(ms) {
@@ -135,14 +136,25 @@ function initFinalQr() {
 
 function finishEyeIntro() {
   const stage = document.getElementById("eye-video-stage");
+  const sceneFade = document.getElementById("scene-fade");
   if (!stage) return;
 
   stage.classList.remove("opening");
   stage.classList.add("closing");
+
+  setTimeout(() => {
+    if (sceneFade) sceneFade.classList.add("active");
+  }, 260);
+
   setTimeout(() => {
     showScreen("song-stage");
     initSongStage();
-  }, 780);
+    if (sceneFade) {
+      setTimeout(() => {
+        sceneFade.classList.remove("active");
+      }, 180);
+    }
+  }, 920);
 }
 
 function startEyeIntro() {
@@ -179,6 +191,8 @@ function startEyeIntro() {
   };
 
   video.currentTime = 0;
+  video.muted = false;
+  video.volume = 1;
   video.addEventListener("ended", onEnded);
   video.play().catch(() => {
     onEnded();
@@ -188,6 +202,20 @@ function startEyeIntro() {
     ? Math.ceil(video.duration * 1000) + 2500
     : 120000;
   eyeVideoFallbackTimer = setTimeout(onEnded, fallbackMs);
+}
+
+function startEyeQuoteThenVideo() {
+  if (eyeIntroDone) {
+    showScreen("song-stage");
+    initSongStage();
+    return;
+  }
+
+  showScreen("eye-quote-screen");
+  if (eyeQuoteTimer) clearTimeout(eyeQuoteTimer);
+  eyeQuoteTimer = setTimeout(() => {
+    startEyeIntro();
+  }, 6000);
 }
 
     function playSong(index) {
@@ -242,17 +270,12 @@ function startEyeIntro() {
         const title = document.createElement("h3");
         title.textContent = song.title;
 
-        const image = document.createElement("img");
-        image.src = song.img;
-        image.alt = song.title;
-        image.addEventListener("error", () => { image.style.display = "none"; }, { once: true });
-
         const btn = document.createElement("button");
         btn.className = "btn";
         btn.textContent = "Play This Song";
         btn.addEventListener("click", () => playSong(index));
 
-        note.append(title, image, btn);
+        note.append(title, btn);
         board.appendChild(note);
         makeDraggable(note, () => {});
       });
@@ -262,8 +285,8 @@ function startEyeIntro() {
         : `${songsData[currentSongIndex].title} is playing in loop.`;
     }
 
-    document.getElementById("finger-open").addEventListener("click", startEyeIntro);
-    document.getElementById("gate-btn").addEventListener("click", startEyeIntro);
+    document.getElementById("finger-open").addEventListener("click", startEyeQuoteThenVideo);
+    document.getElementById("gate-btn").addEventListener("click", startEyeQuoteThenVideo);
     document.getElementById("song-next-btn").addEventListener("click", () => showScreen("letter-screen"));
     document.getElementById("stop-song-btn").addEventListener("click", stopSongs);
 

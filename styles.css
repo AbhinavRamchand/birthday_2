@@ -12,11 +12,6 @@
 
 * { box-sizing: border-box; }
 
-html,
-body {
-  overflow: hidden;
-}
-
 body {
   margin: 0;
   min-height: 100vh;
@@ -27,6 +22,10 @@ body {
     radial-gradient(circle at 80% 90%, rgba(0, 0, 0, 0.12), transparent 36%),
     linear-gradient(130deg, #a28354 0%, #cfb88d 35%, #9f7f52 100%);
   background-attachment: fixed;
+}
+
+body.no-scroll {
+  overflow: hidden;
 }
 
 .screen {
@@ -40,6 +39,20 @@ body {
 .screen.active {
   display: flex;
   animation: fadeIn 0.5s ease;
+}
+
+.scene-fade {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.65), #000 70%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+  transition: opacity 0.65s ease;
+}
+
+.scene-fade.active {
+  opacity: 1;
 }
 
 @keyframes fadeIn {
@@ -165,9 +178,30 @@ body {
 }
 
 /* Eye video intro screen */
+#eye-quote-screen,
 #eye-video-screen {
   background: #000;
   padding: 0;
+}
+
+.eye-quote-box {
+  width: min(900px, 90vw);
+  padding: 20px;
+  text-align: center;
+}
+
+.eye-quote-text {
+  margin: 0;
+  color: #f5e2bf;
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.2rem, 2.6vw, 2rem);
+  letter-spacing: 0.03em;
+  animation: quoteGlow 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes quoteGlow {
+  from { opacity: 0.72; text-shadow: 0 0 0 rgba(245, 226, 191, 0); }
+  to { opacity: 1; text-shadow: 0 0 18px rgba(245, 226, 191, 0.34); }
 }
 
 .eye-video-stage {
@@ -270,7 +304,7 @@ body {
 
 .song-cutting {
   width: min(320px, 84vw);
-  min-height: 240px;
+  min-height: 140px;
   padding: 12px;
   text-align: center;
 }

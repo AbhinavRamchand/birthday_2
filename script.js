@@ -38,6 +38,7 @@ let launchTickerId = null;
 let eyeVideoFallbackTimer = null;
 let eyeIntroDone = false;
 let eyeQuoteTimer = null;
+let rememberTimer = null;
 
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
@@ -123,7 +124,7 @@ function initFinalQr() {
     if (isFileMode) {
       qrStatus.textContent = "QR created, but this page is opened as file://. Run with a local server so scan works properly.";
     } else {
-      qrStatus.textContent = "Scan QR to download Shivani image.";
+      qrStatus.textContent = "Scan the QR.";
     }
   };
 
@@ -211,11 +212,15 @@ function startEyeQuoteThenVideo() {
     return;
   }
 
-  showScreen("eye-quote-screen");
+  showScreen("remember-screen");
   if (eyeQuoteTimer) clearTimeout(eyeQuoteTimer);
-  eyeQuoteTimer = setTimeout(() => {
-    startEyeIntro();
-  }, 6000);
+  if (rememberTimer) clearTimeout(rememberTimer);
+  rememberTimer = setTimeout(() => {
+    showScreen("eye-quote-screen");
+    eyeQuoteTimer = setTimeout(() => {
+      startEyeIntro();
+    }, 6000);
+  }, 4000);
 }
 
     function playSong(index) {

@@ -14,7 +14,7 @@
   <section id="launch-screen" class="screen active">
     <div class="panel gate-box launch-box">
       <h1 class="gate-title">Birthday Keepsake Unlock</h1>
-      <p class="gate-sub">This gift opens on March 27, 2026 at 12:00 AM (IST).</p>
+      <p class="gate-sub">This gift opens on March 27, 2026.</p>
       <p id="unlock-countdown" class="unlock-countdown">Checking unlock timer...</p>
       <button id="unlock-enter-btn" class="btn">Enter Gift</button>
     </div>
@@ -24,7 +24,7 @@
   <section id="gate-screen" class="screen">
     <div class="panel gate-box">
       <h1 class="gate-title">A Birthday Secret</h1>
-      <p class="gate-sub">Place your finger seal to open this old keepsake.</p>
+      <p class="gate-sub">Tap to open this old keepsake.</p>
       <div id="finger-open" class="finger-wrap" title="Tap to open">
         <div class="finger"></div>
       </div>
@@ -39,7 +39,15 @@
     </div>
   </section>
 
-  <!-- Screen 3: Eye intro video -->
+  <!-- Screen 3: Interlude -->
+  <section id="remember-screen" class="screen">
+    <div class="remember-box">
+      <p class="remember-title">I didn't forget this time.</p>
+      <div class="remember-heart" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Screen 4: Eye intro video -->
   <section id="eye-video-screen" class="screen">
     <div id="eye-video-stage" class="eye-video-stage">
       <video id="eye-video" playsinline preload="auto">
@@ -48,7 +56,7 @@
     </div>
   </section>
 
-  <!-- Screen 4: Song paper cuttings -->
+  <!-- Screen 5: Song paper cuttings -->
   <section id="song-stage" class="screen">
     <h2 class="stage-title">Choose Your Song</h2>
     <p class="song-sub">Tap play on any paper cutting.</p>
@@ -60,7 +68,7 @@
     <p id="song-status"></p>
   </section>
 
-  <!-- Screen 5: Old letter -->
+  <!-- Screen 6: Old letter -->
   <section id="letter-screen" class="screen">
     <article id="letter-card" class="letter">
       <h2>To the Most Lovely Birthday Girl</h2>
@@ -80,14 +88,14 @@
     </article>
   </section>
 
-  <!-- Screen 6: 8 cuttings -->
+  <!-- Screen 7: 8 cuttings -->
   <section id="cuttings-stage" class="screen">
     <h2 class="stage-title">Pieces of a Birthday Story</h2>
     <p>Read, drag, then open the next cutting.</p>
     <div id="board" class="board"></div>
   </section>
 
-  <!-- Screen 7: Gallery -->
+  <!-- Screen 8: Gallery -->
   <section id="gallery-stage" class="screen">
     <h2 class="stage-title">Memory Gallery</h2>
     <div class="gallery-card">

@@ -183,6 +183,7 @@ body.no-scroll {
 
 /* Eye video intro screen */
 #eye-quote-screen,
+#remember-screen,
 #eye-video-screen {
   background: #000;
   padding: 0;
@@ -206,6 +207,62 @@ body.no-scroll {
 @keyframes quoteGlow {
   from { opacity: 0.72; text-shadow: 0 0 0 rgba(245, 226, 191, 0); }
   to { opacity: 1; text-shadow: 0 0 18px rgba(245, 226, 191, 0.34); }
+}
+
+.remember-box {
+  width: min(960px, 92vw);
+  text-align: center;
+  padding: 24px;
+}
+
+.remember-title {
+  margin: 0;
+  color: #f7e5c3;
+  font-family: "Cinzel", serif;
+  font-size: clamp(2.1rem, 6vw, 4.2rem);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 22px rgba(247, 229, 195, 0.25);
+}
+
+.remember-sub {
+  margin: 12px 0 0;
+  color: #e6d3af;
+  font-size: clamp(1rem, 2.3vw, 1.4rem);
+}
+
+.remember-heart {
+  margin: 22px auto 0;
+  width: 42px;
+  height: 36px;
+  position: relative;
+  animation: rememberBeat 1.2s ease-in-out infinite;
+}
+
+.remember-heart::before,
+.remember-heart::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 36px;
+  background: #bf2a22;
+  border-radius: 22px 22px 0 0;
+}
+
+.remember-heart::before {
+  left: 20px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.remember-heart::after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+@keyframes rememberBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.14); }
 }
 
 .eye-video-stage {

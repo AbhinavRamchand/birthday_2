@@ -1,0 +1,45 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;500;700&display=swap");
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: "Cormorant Garamond", serif;
+  color: #2f1d0e;
+  background: linear-gradient(135deg, #9d7b4c 0%, #dac59c 45%, #8f6d42 100%);
+}
+
+.download-wrap {
+  width: min(560px, 92vw);
+  text-align: center;
+  background: #fff5df;
+  border: 2px solid #8a6637;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.25);
+}
+
+h1 {
+  font-family: "Cinzel", serif;
+  margin-top: 0;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid #61441f;
+  background: linear-gradient(180deg, #f3dfb8 0%, #d3b47d 100%);
+  color: #2d1f0d;
+  text-decoration: none;
+  font-family: "Cinzel", serif;
+}
+
+.status {
+  margin-bottom: 0;
+  color: #4c2d13;
+}

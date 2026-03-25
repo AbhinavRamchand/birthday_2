@@ -1,0 +1,414 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;500;700&family=Zeyada&display=swap");
+
+:root {
+  --ink: #2b1d12;
+  --ink-soft: #4e3a24;
+  --paper: #f5ecd5;
+  --paper-deep: #ead9b1;
+  --edge: #8a6a3b;
+  --wax: #7b281d;
+  --gold: #b08744;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Cormorant Garamond", serif;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0, 0, 0, 0.14), transparent 28%),
+    radial-gradient(circle at 80% 90%, rgba(0, 0, 0, 0.12), transparent 36%),
+    linear-gradient(130deg, #a28354 0%, #cfb88d 35%, #9f7f52 100%);
+  background-attachment: fixed;
+}
+
+.screen {
+  min-height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.screen.active {
+  display: flex;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel {
+  width: min(900px, 96vw);
+  border: 2px solid #6f522c;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.45), transparent 35%),
+    repeating-linear-gradient(0deg, rgba(131, 102, 55, 0.06), rgba(131, 102, 55, 0.06) 1px, transparent 1px, transparent 4px),
+    linear-gradient(180deg, #fff8e6 0%, var(--paper) 100%);
+  box-shadow: 0 18px 36px rgba(20, 8, 2, 0.35);
+  border-radius: 14px;
+  padding: 26px;
+}
+
+.gate-box { text-align: center; }
+.launch-box { max-width: 760px; }
+
+.unlock-countdown {
+  margin: 0 0 16px;
+  font-size: 1.2rem;
+  color: #3e2510;
+}
+
+.gate-title,
+.stage-title,
+.letter h2 {
+  font-family: "Cinzel", serif;
+  color: #2a1a10;
+  letter-spacing: 0.04em;
+}
+
+.gate-title {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+}
+
+.gate-sub {
+  margin: 0 0 22px;
+  opacity: 0.9;
+  font-size: 1.2rem;
+}
+
+.finger-wrap {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  border: 2px dashed var(--edge);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: radial-gradient(circle, #fff8dc 0, var(--paper-deep) 100%);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.finger-wrap:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 6px rgba(176, 135, 68, 0.2);
+}
+
+.finger {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, transparent 34px, #6c4b1e 35px, transparent 37px),
+    repeating-radial-gradient(circle, #6c4b1e 0 1px, transparent 1px 5px);
+  opacity: 0.92;
+}
+
+.letter {
+  max-width: 760px;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.35), transparent 38%),
+    repeating-linear-gradient(to bottom, rgba(96, 74, 35, 0.09) 0, rgba(96, 74, 35, 0.09) 1px, transparent 1px, transparent 30px),
+    #fff7e4;
+  border: 1px solid #a78553;
+  border-radius: 8px;
+  padding: 30px;
+  transform: rotate(-1deg);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
+}
+
+.letter p {
+  line-height: 1.7;
+  font-size: 1.18rem;
+}
+
+.letter .sign {
+  margin-top: 18px;
+  font-family: "Zeyada", cursive;
+  font-size: 2.3rem;
+}
+
+.letter.crush {
+  transform: scale(0.08) rotate(40deg);
+  opacity: 0;
+  filter: blur(4px);
+}
+
+.btn {
+  border: 1px solid #5f441d;
+  background: linear-gradient(180deg, #f5e4bf 0%, #d8bb83 100%);
+  color: #2e200e;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-family: "Cinzel", serif;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  filter: saturate(1.1);
+}
+
+#song-stage {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.song-sub {
+  margin: 0;
+  opacity: 0.9;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.song-board,
+.board {
+  position: relative;
+  width: min(1120px, 96vw);
+  border: 1px dashed rgba(70, 46, 17, 0.6);
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 249, 232, 0.2), rgba(255, 249, 232, 0.2) 10px, rgba(223, 198, 149, 0.2) 10px, rgba(223, 198, 149, 0.2) 20px),
+    rgba(255, 245, 220, 0.2);
+  overflow: hidden;
+}
+
+.song-board {
+  height: min(72vh, 620px);
+}
+
+.board {
+  height: 72vh;
+}
+
+.song-cutting,
+.cutting {
+  position: absolute;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.38), transparent 35%),
+    repeating-linear-gradient(to bottom, rgba(95, 120, 180, 0.14) 0, rgba(95, 120, 180, 0.14) 1px, transparent 1px, transparent 26px),
+    #fff7e6;
+  border: 1px solid #b2925f;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.24);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.song-cutting {
+  width: min(320px, 84vw);
+  min-height: 240px;
+  padding: 12px;
+  text-align: center;
+}
+
+.song-cutting h3,
+.cutting h3 {
+  margin: 0 0 8px;
+  font-family: "Cinzel", serif;
+  color: var(--ink-soft);
+}
+
+.song-cutting img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border: 1px solid #cbb18a;
+  background: #efe2c4;
+  margin-bottom: 10px;
+  filter: sepia(0.3);
+}
+
+.song-controls {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#song-status {
+  margin: 0;
+  min-height: 24px;
+  text-align: center;
+  color: #402810;
+  font-style: italic;
+}
+
+#cuttings-stage {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stage-title {
+  margin: 0;
+}
+
+.cutting {
+  width: min(390px, 86vw);
+  min-height: 170px;
+  padding: 16px;
+  display: none;
+}
+
+.cutting.show {
+  display: block;
+}
+
+.cutting p {
+  margin: 0 0 14px;
+  line-height: 1.55;
+  font-size: 1.08rem;
+}
+
+.heart-paper {
+  width: min(330px, 82vw);
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+
+.heart-paper.show {
+  display: block;
+}
+
+.heart-paper img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-top: 8px;
+  background: transparent;
+}
+
+.heart-paper img.beating {
+  animation: heartBeat 0.85s ease-in-out 1;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.14); }
+  40% { transform: scale(0.96); }
+  60% { transform: scale(1.16); }
+  80% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+.heart-note {
+  font-family: "Zeyada", cursive;
+  font-size: 2rem;
+  margin: 8px 0 0;
+}
+
+#gallery-stage {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gallery-card {
+  width: min(790px, 94vw);
+  padding: 18px;
+  background:
+    radial-gradient(circle at 12% 15%, rgba(255, 255, 255, 0.45), transparent 35%),
+    #fff8e8;
+  border: 1px solid #af8c56;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  border-radius: 10px;
+}
+
+.gallery-card img {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  border: 1px solid #c8aa75;
+  background: #f7ead0;
+}
+
+.end-note {
+  display: none;
+  margin-top: 12px;
+  background: #f7e7c4;
+  border: 1px solid #b89660;
+  padding: 12px;
+  text-align: left;
+}
+
+.end-note.show {
+  display: block;
+}
+
+.qr-note {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.heart-qr-shell {
+  width: min(220px, 70vw);
+  aspect-ratio: 1 / 1;
+  margin: 10px auto 8px;
+  display: block;
+  border: 3px solid #8d6938;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  background: #fff;
+  overflow: hidden;
+}
+
+.heart-qr-shell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.qr-status {
+  margin: 0;
+  color: #4a2c14;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .song-cutting {
+    position: static;
+    transform: none !important;
+    margin: 10px auto;
+  }
+
+  .song-board {
+    height: auto;
+    min-height: 420px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .letter {
+    padding: 20px;
+  }
+
+  .board {
+    height: 74vh;
+  }
+
+  .gate-sub,
+  .song-sub,
+  .cutting p,
+  .letter p {
+    font-size: 1.05rem;
+  }
+
+  .heart-qr-shell {
+    width: min(180px, 74vw);
+  }
+}
+

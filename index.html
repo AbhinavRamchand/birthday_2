@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Keepsake</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Screen 0: Launch timer gate -->
+  <section id="launch-screen" class="screen active">
+    <div class="panel gate-box launch-box">
+      <h1 class="gate-title">Birthday Keepsake Unlock</h1>
+      <p class="gate-sub">This gift opens on March 27, 2026 at 12:00 AM (IST).</p>
+      <p id="unlock-countdown" class="unlock-countdown">Checking unlock timer...</p>
+      <button id="unlock-enter-btn" class="btn">Enter Gift</button>
+    </div>
+  </section>
+
+  <!-- Screen 1: Fingerprint -->
+  <section id="gate-screen" class="screen">
+    <div class="panel gate-box">
+      <h1 class="gate-title">A Birthday Secret</h1>
+      <p class="gate-sub">Place your finger seal to open this old keepsake.</p>
+      <div id="finger-open" class="finger-wrap" title="Tap to open">
+        <div class="finger"></div>
+      </div>
+      <button id="gate-btn" class="btn">Open Gift</button>
+    </div>
+  </section>
+
+  <!-- Screen 2: Song paper cuttings -->
+  <section id="song-stage" class="screen">
+    <h2 class="stage-title">Choose Your Song</h2>
+    <p class="song-sub">Tap play on any paper cutting. Each selected song plays in loop.</p>
+    <div id="song-board" class="song-board"></div>
+    <div class="song-controls">
+      <button id="stop-song-btn" class="btn">Stop Song</button>
+      <button id="song-next-btn" class="btn">Continue to Letter</button>
+    </div>
+    <p id="song-status"></p>
+  </section>
+
+  <!-- Screen 3: Old letter -->
+  <section id="letter-screen" class="screen">
+    <article id="letter-card" class="letter">
+      <h2>To the Most Lovely Birthday Girl</h2>
+      <p>
+        On this blessed day, I write with a heart full of wonder and gratitude.
+        May your laughter remain bright as morning light, and may each year bring
+        you gentleness, grace, and a thousand sweet memories.
+      </p>
+      <p>
+        If this humble page could sing, it would speak of your kindness, your charm,
+        and the joy your presence gives. Happy Birthday, my dear. You are truly treasured.
+      </p>
+      <div class="sign">With admiration always, Yours</div>
+      <button id="crush-btn" class="btn">Crush This Paper</button>
+    </article>
+  </section>
+
+  <!-- Screen 4: 8 cuttings -->
+  <section id="cuttings-stage" class="screen">
+    <h2 class="stage-title">Pieces of a Birthday Story</h2>
+    <p>Read, drag, then open the next cutting.</p>
+    <div id="board" class="board"></div>
+  </section>
+
+  <!-- Screen 5: Gallery -->
+  <section id="gallery-stage" class="screen">
+    <h2 class="stage-title">Memory Gallery</h2>
+    <div class="gallery-card">
+      <img id="gallery-image" src="" alt="Memory">
+      <p id="gallery-caption"></p>
+      <button id="gallery-next" class="btn">Next Memory</button>
+      <div id="end-note" class="end-note">
+        <h3>Final Note</h3>
+        <p>
+          May your days be wrapped in love, your nights in peace, and your life in beautiful stories.
+          Happy Birthday once again.
+        </p>
+        <div class="qr-note">
+          <p>Scan this heart QR to get a private photo download.</p>
+          <a id="final-qr-link" class="heart-qr-shell" href="shivani-download.html" target="_blank" rel="noopener noreferrer" aria-label="Open Shivani image download page">
+            <img id="final-qr-img" alt="Heart QR code for Shivani download">
+          </a>
+          <p id="final-qr-status" class="qr-status">Generating QR...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

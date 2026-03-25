@@ -1,7 +1,7 @@
 ﻿const cuttingsData = [
   "I’ve known you for years, and your charm has never faded.",
   "No matter the time or distance, your light always shines bright.",
-  "I’m sorry for the moments that weren’t as simple as I thought.",
+  "I’m sorry for the moments which hurts you alot that weren’t as simple as I thought.",
   "Your kindness and strength still leave me in awe, always.",
   "May this new year bring you everything your heart desires.",
   "Wishing you days filled with laughter, love, and little joys.",
@@ -15,9 +15,9 @@ const galleryData = [
   { src: "images/4.jpeg", cap: "A smile that says everything." },
   { src: "images/5.jpeg", cap: "Unforgettable, just like you." },
   { src: "images/6.jpeg", cap: "A snapshot of happiness." },
-  { src: "images/7.jpg", cap: "Timeless beauty, endless memories." },
-  { src: "images/8.jpg", cap: "In this moment, everything is right." },
-  { src: "images/9.jpg", cap: "A picture that speaks volumes." }
+  { src: "images/7.jpeg", cap: "Timeless beauty, endless memories." },
+  { src: "images/8.jpeg", cap: "In this moment, everything is right." },
+  { src: "images/9.jpeg", cap: "A picture that speaks volumes." }
 ];
 
     const songsData = [
@@ -34,7 +34,9 @@ let currentSongIndex = -1;
 let finalQrPrepared = false;
 const UNLOCK_AT_IST = new Date("2026-03-27T00:00:00+05:30");
 const DEV_SHOW_UNLOCK_BUTTON = true; // Set to false when you want real lock behavior.
+const SHOW_LAUNCH_ENTER_BUTTON = true; // Set false before final push to hide Enter button.
 let launchTickerId = null;
+let launchAutoContinued = false;
 let eyeVideoFallbackTimer = null;
 let eyeIntroDone = false;
 let eyeQuoteTimer = null;
@@ -58,36 +60,44 @@ function formatTimeLeft(ms) {
 function updateLaunchGateUi() {
   const countdownEl = document.getElementById("unlock-countdown");
   const enterBtn = document.getElementById("unlock-enter-btn");
-  if (!countdownEl || !enterBtn) return;
+  if (!countdownEl) return;
 
   const now = new Date();
   const isUnlockedByTime = now >= UNLOCK_AT_IST;
   const isUnlocked = isUnlockedByTime || DEV_SHOW_UNLOCK_BUTTON;
 
-  enterBtn.style.display = isUnlocked ? "inline-block" : "none";
+  if (enterBtn) {
+    enterBtn.style.display = SHOW_LAUNCH_ENTER_BUTTON && isUnlocked ? "inline-block" : "none";
+  }
 
   if (isUnlockedByTime) {
     countdownEl.textContent = "Unlocked. You can enter now.";
+    if ((!enterBtn || !SHOW_LAUNCH_ENTER_BUTTON) && !launchAutoContinued) {
+      launchAutoContinued = true;
+      setTimeout(() => showScreen("gate-screen"), 600);
+    }
   } else {
     const left = UNLOCK_AT_IST.getTime() - now.getTime();
     const lockText = `Unlocks in ${formatTimeLeft(left)}`;
     countdownEl.textContent = DEV_SHOW_UNLOCK_BUTTON
-      ? `${lockText} (Dev mode: button is visible now)`
+      ? `${lockText}`
+      // ? `${lockText} (Dev mode: button is visible now)` 
+      // upper line is for a label for dev button is on 
       : lockText;
   }
 }
 
 function initLaunchGate() {
   const enterBtn = document.getElementById("unlock-enter-btn");
-  if (!enterBtn) return;
-
-  enterBtn.addEventListener("click", () => {
-    if (launchTickerId) {
-      clearInterval(launchTickerId);
-      launchTickerId = null;
-    }
-    showScreen("gate-screen");
-  });
+  if (enterBtn) {
+    enterBtn.addEventListener("click", () => {
+      if (launchTickerId) {
+        clearInterval(launchTickerId);
+        launchTickerId = null;
+      }
+      showScreen("gate-screen");
+    });
+  }
 
   updateLaunchGateUi();
   launchTickerId = setInterval(updateLaunchGateUi, 1000);
@@ -103,7 +113,10 @@ function initFinalQr() {
 
   const isFileMode = window.location.protocol === "file:";
   const downloadPageUrl = new URL("shivani-download.html", window.location.href).href;
-  qrLink.href = downloadPageUrl;
+  // Keep QR scannable, but block direct click-open on this device.
+  qrLink.href = "#";
+  qrLink.style.cursor = "default";
+  qrLink.addEventListener("click", e => e.preventDefault());
   const qrProviders = [
     `https://api.qrserver.com/v1/create-qr-code/?size=900x900&data=${encodeURIComponent(downloadPageUrl)}`,
     `https://quickchart.io/qr?size=900&text=${encodeURIComponent(downloadPageUrl)}`
@@ -124,7 +137,7 @@ function initFinalQr() {
     if (isFileMode) {
       qrStatus.textContent = "QR created, but this page is opened as file://. Run with a local server so scan works properly.";
     } else {
-      qrStatus.textContent = "Scan the QR.";
+      qrStatus.textContent = "Scan this QR from another mobile to open the final surprise.";
     }
   };
 
@@ -237,7 +250,7 @@ function startEyeQuoteThenVideo() {
       selected.play()
         .then(() => {
           currentSongIndex = index;
-          status.textContent = `${songsData[index].title} is playing in loop.`;
+          status.textContent = `${songsData[index].title} is playing.`;
         })
         .catch(() => {
           status.textContent = `Could not play ${songsData[index].title}. Check song file path.`;
@@ -287,11 +300,13 @@ function startEyeQuoteThenVideo() {
 
       document.getElementById("song-status").textContent = currentSongIndex === -1
         ? "No song is playing."
-        : `${songsData[currentSongIndex].title} is playing in loop.`;
+        : `${songsData[currentSongIndex].title} is playing.`;
     }
 
-    document.getElementById("finger-open").addEventListener("click", startEyeQuoteThenVideo);
-    document.getElementById("gate-btn").addEventListener("click", startEyeQuoteThenVideo);
+    const fingerOpen = document.getElementById("finger-open");
+    const gateBtn = document.getElementById("gate-btn");
+    if (fingerOpen) fingerOpen.addEventListener("click", startEyeQuoteThenVideo);
+    if (gateBtn) gateBtn.addEventListener("click", startEyeQuoteThenVideo);
     document.getElementById("song-next-btn").addEventListener("click", () => showScreen("letter-screen"));
     document.getElementById("stop-song-btn").addEventListener("click", stopSongs);
 

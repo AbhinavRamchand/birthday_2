@@ -371,21 +371,16 @@ function startEyeQuoteThenVideo() {
         title.textContent = `Cutting ${index + 1} of 8`;
 
         const text = document.createElement("p");
-        text.textContent = cuttingsData[index];
+        text.textContent = index === 7
+          ? "find heart by dragging the pappers"
+          : cuttingsData[index];
 
         const btn = document.createElement("button");
         btn.className = "btn";
         btn.textContent = index === 7 ? "Open Last Heart Paper" : "Next Cutting";
         btn.disabled = false;
 
-        const hint = document.createElement("p");
-        hint.textContent = "Drag if you want, or click next directly.";
-        hint.style.margin = "0 0 10px";
-        hint.style.fontSize = "0.9rem";
-
-        makeDraggable(note, () => {
-          hint.textContent = "Nice drag. You can continue.";
-        });
+        makeDraggable(note, () => {});
 
         btn.addEventListener("click", () => {
           btn.remove();
@@ -398,7 +393,7 @@ function startEyeQuoteThenVideo() {
           }
         });
 
-        note.append(title, hint, text, btn);
+        note.append(title, text, btn);
         board.appendChild(note);
       }
 

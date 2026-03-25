@@ -372,7 +372,7 @@ function startEyeQuoteThenVideo() {
 
         const text = document.createElement("p");
         text.textContent = index === 7
-          ? "find heart by dragging the pappers"
+          ? "Find the heart by dragging the pappers"
           : cuttingsData[index];
 
         const btn = document.createElement("button");

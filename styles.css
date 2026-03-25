@@ -15,6 +15,7 @@
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   color: var(--ink);
   font-family: "Cormorant Garamond", serif;
   background:
@@ -22,6 +23,7 @@ body {
     radial-gradient(circle at 80% 90%, rgba(0, 0, 0, 0.12), transparent 36%),
     linear-gradient(130deg, #a28354 0%, #cfb88d 35%, #9f7f52 100%);
   background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 body.no-scroll {
@@ -30,6 +32,7 @@ body.no-scroll {
 
 .screen {
   min-height: 100vh;
+  min-height: 100dvh;
   display: none;
   align-items: center;
   justify-content: center;
@@ -169,6 +172,7 @@ body.no-scroll {
   letter-spacing: 0.03em;
   border-radius: 999px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  min-height: 44px;
 }
 
 .btn:hover {
@@ -207,6 +211,7 @@ body.no-scroll {
 .eye-video-stage {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background: #000;
   border-radius: 0;
   overflow: hidden;
@@ -475,6 +480,18 @@ body.no-scroll {
 }
 
 @media (max-width: 900px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .screen {
+    padding: 14px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
   .eye-video-stage video {
     transform: scale(0.7);
   }
@@ -487,18 +504,28 @@ body.no-scroll {
 
   .song-board {
     height: auto;
-    min-height: 420px;
+    min-height: 300px;
     padding: 12px;
   }
 }
 
 @media (max-width: 700px) {
+  .gate-title {
+    font-size: clamp(1.5rem, 8vw, 2.1rem);
+  }
+
+  .unlock-countdown {
+    font-size: 1.02rem;
+  }
+
   .letter {
-    padding: 20px;
+    padding: 16px;
+    transform: none;
   }
 
   .board {
-    height: 74vh;
+    height: 68vh;
+    height: 68dvh;
   }
 
   .gate-sub,
@@ -510,5 +537,13 @@ body.no-scroll {
 
   .heart-qr-shell {
     width: min(180px, 74vw);
+  }
+
+  .song-cutting {
+    width: min(360px, 92vw);
+  }
+
+  .song-controls .btn {
+    width: min(260px, 90vw);
   }
 }
